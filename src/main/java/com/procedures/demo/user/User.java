@@ -1,5 +1,6 @@
 package com.procedures.demo.user;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,20 +10,30 @@ import jakarta.persistence.Id;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String lastname;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
     private String password;
 
     public User() {}
   
-    public User(String name, String lastname, String password) {
+    public User(String name, String lastname, String email, String password) {
         this.name = name;
         this.lastname = lastname;
+        this.email = email;
         this.password = password;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,11 +45,15 @@ public class User {
         this.lastname = lastname;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Integer getId () {
+    public long getId () {
         return id;
     }
 
@@ -48,6 +63,10 @@ public class User {
 
     public String getLastname () {
         return lastname;
+    }
+
+    public String getEmail () {
+        return email;
     }
 
     public String getPassword () {
@@ -61,6 +80,7 @@ public class User {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         return result;
     }
@@ -89,6 +109,11 @@ public class User {
                 return false;
         } else if (!lastname.equals(other.lastname))
             return false;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
         if (password == null) {
             if (other.password != null)
                 return false;
@@ -99,6 +124,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [name=" + name + ", lastname=" + lastname + ", password=" + password + "]";
+        return "User [name=" + name + ", lastname=" + lastname + ", email=" + email + ", password=" + password + "]";
     }
 }

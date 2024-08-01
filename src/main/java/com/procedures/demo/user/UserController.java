@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/find/{id}")
-    public @ResponseBody Optional<User> getById(@PathVariable("id") Integer id) {
+    public @ResponseBody Optional<User> getById(@PathVariable("id") Long id) {
         return userRepository.findById(id);
     }
 
