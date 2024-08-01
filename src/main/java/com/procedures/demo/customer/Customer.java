@@ -1,26 +1,50 @@
 package com.procedures.demo.customer;
 
+import java.util.List;
+
+import com.procedures.demo.appointment.Appointment;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Customer {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String lastname;
+
+    @Column(nullable = false)
     private String nickname;
+
+    @Column(name="whatsapp_user", columnDefinition = "boolean default false")
     private Boolean whatsappUser;
+
     private String observation;
 
-    public Customer(){}
-    
-    public Customer(String name, String lastname, String nickname, Boolean whatsappUser, String observation){}
+    @OneToMany(mappedBy = "customer")
+    private List<Appointment> appointment;
 
-    public void setId(Integer id) {
+    public Customer(){}
+
+    public Customer(String name, String lastname, String nickname, Boolean whatsappUser, String observation) {
+        this.name = name;
+        this.lastname = lastname;
+        this.nickname = nickname;
+        this.whatsappUser = whatsappUser;
+        this.observation = observation;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,31 +68,25 @@ public class Customer {
         this.observation = observation;
     }
 
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
     }
 
-
     public String getLastname() {
         return lastname;
     }
-
 
     public String getNickname() {
         return nickname;
     }
 
-
     public Boolean getWhatsappUser() {
         return whatsappUser;
     }
-
 
     public String getObservation() {
         return observation;

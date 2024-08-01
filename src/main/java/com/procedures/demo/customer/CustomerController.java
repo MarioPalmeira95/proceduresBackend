@@ -32,7 +32,7 @@ public class CustomerController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Optional<Customer>> getById(@PathVariable("id") Integer id) {
+    public ResponseEntity<Optional<Customer>> getById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(customerRepository.findById(id), HttpStatus.OK);
     }
 
